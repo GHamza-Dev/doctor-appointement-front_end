@@ -52,7 +52,6 @@ export default {
       let $raw = {};
       $headers.append("Access-Control-Allow-Origin", "*");
       $headers.append("Content-Type", "application/json");
-      $headers.append("Authorization", "Bearer 2b69a92c6bf759fc701740b2f58d0295");
       $raw = JSON.stringify({
         fname:this.fname,
         lname:this.lname,
