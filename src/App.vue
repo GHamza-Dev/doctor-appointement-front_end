@@ -1,29 +1,56 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <header>
+    <NavBar class="absolute top-4 z-10 w-screen abs-center" />
+  </header>
+  
   <router-view/>
 </template>
+<script>
+import NavBar from '@/components/NavBar.vue'
+
+export default {
+  components:{
+    NavBar
+  }
+}
+</script>
+
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  font-family: poppins;
+
+  .bg-img{
+    background-image: url('./assets/doctor.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+
+  .bg-img::after{
+      content: "";
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,.3);
+      position: absolute;
+      top:0;
+      z-index: 1;
+  }
+  .abs-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
+
+
 nav {
-  padding: 30px;
 
   a {
-    font-weight: bold;
-    color: #2c3e50;
 
     &.router-link-exact-active {
-      color: #42b983;
+      text-decoration: none;
     }
   }
 }
