@@ -32,6 +32,7 @@
 
 <script>
 import Input from '@/components/Input.vue'
+import { apiBase } from '@/config/config';
 
 export default {
   name:'RegisterView',
@@ -62,7 +63,7 @@ export default {
         headers:$headers,
         body:$raw,
       }
-      fetch('http://localhost/doc/user/register', $options)
+      fetch(`${apiBase}/user/register`, $options)
       .then(res => res.json())
       .then(res => {
         this.uuid = res.uuid;

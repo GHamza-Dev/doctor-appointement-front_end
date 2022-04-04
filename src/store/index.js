@@ -1,5 +1,6 @@
 import router from '@/router';
 import { createStore } from 'vuex'
+import {apiBase} from '@/config/config';
 
 export default createStore({
   state: {
@@ -30,7 +31,7 @@ export default createStore({
           headers: $headers,
           body: $raw,
         }
-        fetch('http://localhost/doc/user/login', $options)
+        fetch(`${apiBase}/user/login`, $options)
           .then(res => res.json())
           .then(res => {
             if (res['data']) {
