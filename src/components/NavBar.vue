@@ -8,7 +8,7 @@
           <router-link class="mr-0 bg-secondary hover:bg-secondary text-white py-2 px-4 rounded-3xl" to="/register" >Register</router-link>
         </button>
         <button v-if="$store.state.auth">
-          <router-link class="bg-primary text-sm hover:bg-secondary text-white p-3 rounded-3xl" to='/'>New Appoientement</router-link>
+          <router-link class="bg-primary text-sm hover:bg-secondary text-white p-3 rounded-3xl" to='/appointement'>New Appoientement</router-link>
         </button>
       </nav>
     </div>
