@@ -3,12 +3,12 @@
     <form>
       <div class="flex flex-col pl-3 pt-3">
         <label class="text-gray-dark" for="date">Select Date</label>
-        <input @change="$store.dispatch('getSchedule',selectedDate)" :v-model="selectedDate" class="p-1 mt-1 text-cyan-600 w-56 rounded text-lg" id="date" type="date" :min="minDate">
+        <input @change="$store.dispatch('getSchedule',selectedDate)" v-model="selectedDate" class="p-1 mt-1 text-cyan-600 w-56 rounded text-lg" id="date" type="date" :min="minDate">
       </div>
     </form>
     <hr class="mt-3 text-emerald-100">
     <div class="grid grid-cols-4 grid-rows-4 justify-items-stretch items-stretch gap-4 px-3 pt-3">
-      <div v-for="sc in $store.state.schedule" :key="sc.scheduleId" class="h-24  border text-center pt-2 relative border-emerald-100 rounded cursor-pointer bg-white bg-opacity-30">
+      <div v-for="sc in $store.state.schedule" :key="sc.scheduleId" :data-id="sc.scheduleId" class="h-24  border text-center pt-2 relative border-emerald-100 rounded cursor-pointer bg-white bg-opacity-30">
         <p class="text-gray-dark text-lg underline">{{sc.label}}</p>
         <div class="w-6 h-6 bg-primary rounded-full absolute bottom-1 right-1"></div>
       </div>
@@ -26,7 +26,16 @@ export default {
   },
   created(){
     let d = new Date();
-    let dateOfToday = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+
+    let year = d.getFullYear();
+    let month = d.getMonth();
+
+    month = parseInt(month)+1;
+    month =month > 9 ? month : `0${month}`;
+
+    let day = d.getDate() > 9 ? d.getDate() : `0${d.getDate()}`;
+    let dateOfToday = `${year}-${month}-${day}`;
+
     this.minDate = dateOfToday;
     this.selectedDate = dateOfToday;
     this.$store.dispatch('getSchedule',this.selectedDate);
@@ -36,4 +45,4 @@ export default {
 
 <style>
 
-</style>
+</style>   
