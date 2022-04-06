@@ -3,8 +3,8 @@
       <div class="box flex flex-col justify-evenly h-28 rounded max-w-xl w-11/12 m-auto bg-white">
         <p class="text-lg text-center">{{msg}}</p>
         <div class="flex justify-evenly items-center">
-            <button class="border-2 border-gray rounded p-1 text-gray font-semibold">{{no}}</button>
-            <button class="border-2 border-primary rounded p-1 text-white font-semibold bg-primary">{{yes}}</button>
+            <button @click="$emit('on-cancel')" class="border-2 border-gray rounded p-1 text-gray font-semibold">{{no}}</button>
+            <button @click="$emit('on-confirm')" class="border-2 border-primary rounded p-1 text-white font-semibold bg-primary">{{yes}}</button>
         </div>
       </div>
   </div>
