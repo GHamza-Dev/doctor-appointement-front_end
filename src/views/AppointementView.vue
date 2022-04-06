@@ -1,8 +1,9 @@
 git <template>
-  <div class="max-w-xl mt-24 rounded-md m-auto h-96 bg-indigo-300 sm:mx-auto mx-2">
+  <h2 class="mt-24 max-w-xl sm:mx-auto mx-2 text-xl font-semibold text-violet-900">Take Appointement</h2>
+  <div class="max-w-xl mt-4 rounded-md m-auto h-96 bg-indigo-300 sm:mx-auto mx-2">
     <form>
       <div class="flex flex-col pl-3 pt-3">
-        <label class="text-gray-dark" for="date">Select Date</label>
+        <label class="text-violet-900" for="date">Select Date</label>
         <input @change="$store.dispatch('getSchedule',selectedDate)" v-model="selectedDate" class="p-1 mt-1 text-cyan-600 w-56 rounded text-lg outline outline-indigo-400 focus:outline-primary cursor-pointer" id="date" type="date" :min="minDate">
       </div>
     </form>
@@ -12,6 +13,15 @@ git <template>
         <p class="text-gray-dark text-lg underline">{{sc.label}}</p>
         <div class="w-6 h-6 bg-primary rounded-full absolute bottom-1 right-1"></div>
       </div>
+    </div>
+  </div>
+  <h2 class="mt-4 max-w-xl sm:mx-auto mx-2 text-xl font-semibold text-violet-900">Your Appointements</h2>
+  <div class="mt-2 max-w-xl sm:mx-auto mx-2">
+    <div v-for="(appt,index) in $store.state.appts" :key="appt.id" class="my-2 flex justify-between items-center border border-purple p-2 rounded">
+      <span>#{{index}}</span>
+      <span>{{appt.date}}</span>
+      <span>{{appt.label}}</span>
+      <button class="border bg-red-400 text-white p-1 rounded">Cancel</button>
     </div>
   </div>
   <Modal @on-confirm="book" :msg="`Confirm the date: ${selectedDate} | ${selectedLable}`" @on-cancel="toggelModal" :show="showModal" />
@@ -66,6 +76,8 @@ export default {
     this.minDate = dateOfToday;
     this.selectedDate = dateOfToday;
     this.$store.dispatch('getSchedule',this.selectedDate);
+
+    this.$store.dispatch('getAppts');
   }
 }
 </script>

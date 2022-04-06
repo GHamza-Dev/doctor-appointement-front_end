@@ -7,6 +7,7 @@ export default createStore({
     auth: false,
     user: {},
     schedule:[],
+    appts:[]
   },
   getters: {
   },
@@ -16,6 +17,9 @@ export default createStore({
     },
     setSchedule(state,schedule){
       state.schedule = schedule;
+    },
+    setAppts(state,appts){
+      state.appts = appts;
     },
     authToggle(state,auth){
       state.auth = auth;
@@ -51,6 +55,7 @@ export default createStore({
       }else if(appt['message'] === 'success'){
         alert(appt['alert']);
         context.dispatch('getSchedule',date);
+        context.dispatch('getAppts');
       }else alert('Oops something went wrong!');
       
     },
@@ -82,6 +87,35 @@ export default createStore({
 
       commit('setSchedule',schedule['data']);
 
+    },
+    // ==> Get user appts
+    async getAppts({commit,state}){
+      let userId = state.user.userId;
+      let token = state.user.token;
+      let $headers = new Headers();
+      let $raw = {};
+      $headers.append("Access-Control-Allow-Origin", "*");
+      $headers.append("Content-Type", "application/json");
+      $headers.append("Authorization", `Bearer ${token}`);
+      $raw = JSON.stringify({
+        uid: userId
+      });
+      let $options = {
+        method: 'POST',
+        headers: $headers,
+        body: $raw,
+      }
+      const res = await fetch(`${apiBase}/appointement/getuserappts`, $options);
+      const appts = await res.json();
+      
+      if (appts['code'] === 401) {
+        alert('Ops it seems like your token has been expired');
+        router.replace('/login');
+        localStorage.removeItem('userxyz');
+        return;
+      }
+
+      commit('setAppts',appts['data']);
     },
     // ==> login
     login({commit},ref) {
