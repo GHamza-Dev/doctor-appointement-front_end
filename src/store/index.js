@@ -22,7 +22,7 @@ export default createStore({
     }
   },
   actions: {
-    async book(context,{selectedId,selectedDate}){
+    async book(context,{scid,date}){
       let userId = context.state.user.userId;
       let token = context.state.user.token;
       let $headers = new Headers();
@@ -32,8 +32,8 @@ export default createStore({
       $headers.append("Authorization", `Bearer ${token}`);
       $raw = JSON.stringify({
         uid: userId,
-        scid: selectedId,
-        date: selectedDate
+        scid: scid,
+        date: date
       });
       let $options = {
         method: 'POST',
@@ -48,8 +48,11 @@ export default createStore({
         router.replace('/login');
         localStorage.removeItem('userxyz');
         return;
-      }
-      console.log(appt);
+      }else if(appt['message'] === 'success'){
+        alert(appt['alert']);
+        context.dispatch('getSchedule',date);
+      }else alert('Oops something went wrong!');
+      
     },
     // ==> get available schedule
     async getSchedule({commit,state},date){

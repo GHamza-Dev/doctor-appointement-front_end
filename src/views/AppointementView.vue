@@ -14,7 +14,7 @@ git <template>
       </div>
     </div>
   </div>
-  <Modal @on-confirm="$store.dispatch('book',{selectedId,selectedDate})" :msg="`Confirm the date: ${selectedDate} | ${selectedLable}`" @on-cancel="toggelModal" :show="showModal" />
+  <Modal @on-confirm="book" :msg="`Confirm the date: ${selectedDate} | ${selectedLable}`" @on-cancel="toggelModal" :show="showModal" />
 </template>
 
 <script>
@@ -40,6 +40,14 @@ export default {
     selectScheduel(id,label){
       this.selectedId = id;
       this.selectedLable = label;
+      this.toggelModal();
+    },
+    book(){
+      let params = {
+        scid:this.selectedId,
+        date:this.selectedDate
+      }
+      this.$store.dispatch('book',params);
       this.toggelModal();
     }
   },
