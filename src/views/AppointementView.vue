@@ -3,7 +3,7 @@ git <template>
     <form>
       <div class="flex flex-col pl-3 pt-3">
         <label class="text-gray-dark" for="date">Select Date</label>
-        <input @change="$store.dispatch('getSchedule',selectedDate)" v-model="selectedDate" class="p-1 mt-1 text-cyan-600 w-56 rounded text-lg" id="date" type="date" :min="minDate">
+        <input @change="$store.dispatch('getSchedule',selectedDate)" v-model="selectedDate" class="p-1 mt-1 text-cyan-600 w-56 rounded text-lg outline outline-indigo-400 focus:outline-primary cursor-pointer" id="date" type="date" :min="minDate">
       </div>
     </form>
     <hr class="mt-3 text-emerald-100">
