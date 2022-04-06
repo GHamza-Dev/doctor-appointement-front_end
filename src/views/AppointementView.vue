@@ -1,4 +1,4 @@
-<template>
+git <template>
   <div class="max-w-xl mt-24 rounded-md m-auto h-96 bg-indigo-300 sm:mx-auto mx-2">
     <form>
       <div class="flex flex-col pl-3 pt-3">
@@ -8,20 +8,39 @@
     </form>
     <hr class="mt-3 text-emerald-100">
     <div class="grid grid-cols-4 grid-rows-4 justify-items-stretch items-stretch gap-4 px-3 pt-3">
-      <div v-for="sc in $store.state.schedule" :key="sc.scheduleId" :data-id="sc.scheduleId" class="h-24  border text-center pt-2 relative border-emerald-100 rounded cursor-pointer bg-white bg-opacity-30">
+      <div v-for="sc in $store.state.schedule" :key="sc.scheduleId" @click="selectScheduel(sc.scheduleId,sc.label)" :data-id="sc.scheduleId" class="h-24  border text-center pt-2 relative border-emerald-100 rounded cursor-pointer bg-white bg-opacity-30">
         <p class="text-gray-dark text-lg underline">{{sc.label}}</p>
         <div class="w-6 h-6 bg-primary rounded-full absolute bottom-1 right-1"></div>
       </div>
     </div>
   </div>
+  <Modal @on-confirm="$store.dispatch('book',{selectedId,selectedDate})" :msg="`Confirm the date: ${selectedDate} | ${selectedLable}`" @on-cancel="toggelModal" :show="showModal" />
 </template>
 
 <script>
+import Modal from '@/components/Modal.vue'
+
 export default {
+  components:{
+    Modal
+  },
   data(){
     return{
       minDate:'',
-      selectedDate:''
+      selectedDate:'',
+      showModal:false,
+      selectedId:0,
+      selectedLable:0,
+    }
+  },
+  methods:{
+    toggelModal(){
+      this.showModal = !this.showModal
+    },
+    selectScheduel(id,label){
+      this.selectedId = id;
+      this.selectedLable = label;
+      this.toggelModal();
     }
   },
   created(){
