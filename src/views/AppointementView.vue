@@ -17,14 +17,16 @@ git <template>
   </div>
   <h2 class="mt-4 max-w-xl sm:mx-auto mx-2 text-xl font-semibold text-violet-900">Your Appointements</h2>
   <div class="mt-2 max-w-xl sm:mx-auto mx-2">
-    <div v-for="(appt,index) in $store.state.appts" :key="appt.id" class="my-2 flex justify-between items-center border border-purple p-2 rounded">
+    <div v-for="(appt,index) in $store.state.appts" :key="appt.aptId" class="my-2 flex justify-between items-center border border-purple p-2 rounded">
       <span>#{{index}}</span>
       <span>{{appt.date}}</span>
       <span>{{appt.label}}</span>
-      <button class="border bg-red-400 text-white p-1 rounded">Cancel</button>
+      <span>{{appt.aptId}}</span>
+      <button @click="selectAppt(appt.aptId)" class="border bg-red-400 text-white p-1 rounded">Cancel</button>
     </div>
   </div>
   <Modal @on-confirm="book" :msg="`Confirm the date: ${selectedDate} | ${selectedLable}`" @on-cancel="toggelModal" :show="showModal" />
+  <Modal @on-confirm="cancelAppt" msg="Are you sure you want to cancel this appoientement?" @on-cancel="toggelCancelModal" :show="showCancelModal" />
 </template>
 
 <script>
@@ -39,13 +41,18 @@ export default {
       minDate:'',
       selectedDate:'',
       showModal:false,
-      selectedId:0,
-      selectedLable:0,
+      showCancelModal:false,
+      selectedId:0, // id of scheduel to be booked
+      selectedLable:0, // lable of scheduel to be booked
+      idToCancel:0 // id of appt to be cancled
     }
   },
   methods:{
     toggelModal(){
       this.showModal = !this.showModal
+    },
+    toggelCancelModal(){
+      this.showCancelModal = !this.showCancelModal
     },
     selectScheduel(id,label){
       this.selectedId = id;
@@ -59,6 +66,14 @@ export default {
       }
       this.$store.dispatch('book',params);
       this.toggelModal();
+    },
+    selectAppt(id){
+      this.idToCancel = id;
+      this.toggelCancelModal();
+    },
+    cancelAppt(){
+      this.$store.dispatch('cancel',this.idToCancel);
+      this.toggelCancelModal();
     }
   },
   created(){

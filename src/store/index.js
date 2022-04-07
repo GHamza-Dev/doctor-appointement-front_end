@@ -51,13 +51,41 @@ export default createStore({
         alert('Ops it seems like your token has been expired');
         router.replace('/login');
         localStorage.removeItem('userxyz');
-        return;
       }else if(appt['message'] === 'success'){
         alert(appt['alert']);
         context.dispatch('getSchedule',date);
         context.dispatch('getAppts');
       }else alert('Oops something went wrong!');
       
+    },
+    async cancel(context,id){
+      let token = context.state.user.token;
+      let $headers = new Headers();
+      let $raw = {};
+      $headers.append("Access-Control-Allow-Origin", "*");
+      $headers.append("Content-Type", "application/json");
+      $headers.append("Authorization", `Bearer ${token}`);
+      $raw = JSON.stringify({
+        id: id
+      });
+      let $options = {
+        method: 'POST',
+        headers: $headers,
+        body: $raw,
+      }
+      const res = await fetch(`${apiBase}/appointement/cancel`, $options);
+      const appt = await res.json();
+
+      if (appt['code'] === 401) {
+        alert('Ops it seems like your token has been expired');
+        router.replace('/login');
+        localStorage.removeItem('userxyz');
+      }else if(appt['message'] === 'success'){
+        console.log(appt);
+        alert(appt['alert']);
+        context.dispatch('getSchedule',date);
+        context.dispatch('getAppts');
+      }else alert(appt['alert']);      
     },
     // ==> get available schedule
     async getSchedule({commit,state},date){
