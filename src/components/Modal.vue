@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" class="absolute w-screen h-screen z-10 top-0 bg-gray-dark bg-opacity-60">
+  <div v-if="show" class="fixed w-screen  z-10 top-0 h-screen bg-gray-dark bg-opacity-60">
       <div class="box flex flex-col justify-evenly h-28 rounded max-w-xl w-11/12 m-auto bg-white">
         <p class="text-lg text-center">{{msg}}</p>
         <div class="flex justify-evenly items-center">
