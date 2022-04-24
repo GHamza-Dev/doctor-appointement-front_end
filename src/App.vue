@@ -1,9 +1,11 @@
 <template>
-  <header>
-    <NavBar class="absolute top-4 z-10 w-screen abs-center" />
-  </header>
-  
-  <router-view/>
+  <div class="container">
+    <header>
+      <NavBar class="absolute top-4 z-10 w-screen abs-center" />
+    </header>
+    
+    <router-view/>
+  </div>
 
   <Footer />
 </template>
@@ -46,7 +48,9 @@ export default {
     transform: translateX(-50%);
   }
 }
-
+ .container{
+   min-height: calc(100vh - 52px);
+ }
 
 
 nav {
