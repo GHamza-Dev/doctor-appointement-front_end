@@ -37,7 +37,6 @@ const router = createRouter({
 router.beforeEach((to,from,next)=>{
   
   if(!to.meta?.requiresAuth){
-    console.log(to.meta?.requiresAuth);
     next();return;
   }
 

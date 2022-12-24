@@ -22,7 +22,7 @@
     <div class="w-11/12 -translate-y-1/2 top-1/3 absolute bg-primary left-1/2 -translate-x-1/2 p-4 rounded">
       <p class="text-white">This is your registration code, it will be used to login into your account</p>
       <div class="flex items-center justify-center my-3">
-        <p class="bg-slate-300 rounded py-1 px-4 w-max"><code>{{uuid}}</code></p>
+        <p class="bg-slate-300 rounded py-1 px-4 w-max"><code @click="copyCode">{{uuid}}</code></p>
         <i class="fa-solid fa-clipboard text-3xl text-slate-300 cursor-pointer ml-2"></i>
       </div>
       <router-link class="border border-slate-800 text-slate-50" to="/login">Go to login</router-link>
@@ -48,6 +48,9 @@ export default {
     }
   },
   methods:{
+    copyCode(){
+      navigator.clipboard.readText(this.uuid)
+    },
     register(){
       let $headers = new Headers();
       let $raw = {};

@@ -1,4 +1,4 @@
-git <template>
+<template>
   <h2 class="mt-24 max-w-xl sm:mx-auto mx-2 text-xl font-semibold text-violet-900">Take Appointement</h2>
   <div class="max-w-xl mt-4 rounded-md m-auto h-96 bg-indigo-300 sm:mx-auto mx-2">
     <form>
